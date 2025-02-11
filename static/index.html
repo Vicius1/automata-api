@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Autômatos - Interface Web</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container py-4">
+        <h1 class="text-center mb-4">Gerenciador de Autômatos</h1>
+
+        <!-- Seleção do Tipo de Autômato -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Escolha o tipo de autômato:</label>
+            <select id="automatonType" class="form-select">
+                <option value="afd">AFD</option>
+                <option value="nfa">NFA</option>
+                <option value="dpda">DPDA</option>
+                <option value="npda">NPDA</option>
+                <option value="tm">TM</option>
+                <option value="ntm">NTM</option>
+                <option value="mntm">MNTM</option>
+            </select>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="d-flex justify-content-center gap-3 mb-4">
+            <button class="btn btn-primary" onclick="createAutomaton()">Criar</button>
+            <button class="btn btn-success" onclick="getAutomaton()">Consultar</button>
+            <button class="btn btn-warning" onclick="testAutomaton()">Testar</button>
+            <button class="btn btn-danger" onclick="visualizeAutomaton()">Visualizar</button>
+        </div>
+
+        <!-- Área de Resultado -->
+        <div id="resultArea" class="card">
+            <div class="card-header bg-dark text-white">Resultado</div>
+            <div class="card-body">
+                <pre id="resultText" class="text-break">Aguardando ação...</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const baseURL = "http://127.0.0.1:8000"; // Ajuste conforme necessário
+
+        async function createAutomaton() {
+            const type = document.getElementById("automatonType").value;
+            const config = prompt("Digite o JSON de configuração:");
+            if (!config) return alert("Configuração inválida!");
+
+            try {
+                const response = await fetch(`${baseURL}/${type}/create`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: config
+                });
+                const data = await response.json();
+                document.getElementById("resultText").textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                alert("Erro ao criar autômato!");
+            }
+        }
+
+        async function getAutomaton() {
+            const type = document.getElementById("automatonType").value;
+            const id = prompt("Digite o ID do autômato:");
+            if (!id) return alert("ID inválido!");
+
+            try {
+                const response = await fetch(`${baseURL}/${type}/${id}`);
+                const data = await response.json();
+                document.getElementById("resultText").textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                alert("Erro ao consultar autômato!");
+            }
+        }
+
+        async function testAutomaton() {
+            const type = document.getElementById("automatonType").value;
+            const id = prompt("Digite o ID do autômato:");
+            const input = prompt("Digite a entrada para teste:");
+            if (!id || !input) return alert("ID ou entrada inválida!");
+
+            try {
+                const response = await fetch(`${baseURL}/${type}/${id}/test`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ input_string: input })
+                });
+                const data = await response.json();
+                document.getElementById("resultText").textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                alert("Erro ao testar autômato!");
+            }
+        }
+
+        async function visualizeAutomaton() {
+            const type = document.getElementById("automatonType").value;
+            const id = prompt("Digite o ID do autômato:");
+            if (!id) return alert("ID inválido!");
+
+            try {
+                const img = document.createElement("img");
+                img.src = `${baseURL}/${type}/${id}/visualize`;
+                img.className = "img-fluid mt-3";
+                
+                const resultArea = document.getElementById("resultText");
+                resultArea.innerHTML = ""; // Limpa a área
+                resultArea.appendChild(img);
+            } catch (error) {
+                alert("Erro ao visualizar autômato!");
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
