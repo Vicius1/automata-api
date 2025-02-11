@@ -35,4 +35,4 @@ Esta API REST foi desenvolvida para manipular e analisar autômatos (AFD, NFA, D
 
 ### Exemplos
 
-Use exemplos do testesApi.txt ou crie seus prórios usando algum deles de base.
+Use os exemplos que estão no .pdf
