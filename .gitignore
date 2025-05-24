@@ -1,0 +1,69 @@
+# Ambiente virtual
+venv/
+.env/
+env/
+
+# Arquivos de cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs e arquivos temporários
+*.log
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Arquivos de configuração de IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# Arquivos de sistema
+.DS_Store
+ehthumbs.db
+Icon?
+desktop.ini
+
+# Arquivos de testes ou coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Distribuição
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Pipenv
+Pipfile.lock
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre
+.pyre/
+
+# Pytype
+.pytype/
+
+# Pytest
+.pytest_cache/
+
+# VS Code settings (opcional)
+.vscode/
