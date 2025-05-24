@@ -13,12 +13,18 @@ Esta API REST foi desenvolvida para manipular e analisar autômatos (AFD, NFA, D
 ### Instalação
 
 1. Clone o repositório:
-   
+
+   ```bash
+   git clone https://github.com/Vicius1/automata-api.git
+   cd automata-api
+
 2. Crie e ative um ambiente virtual (opcional, mas recomendado):
    
    ```bash
    python -m venv venv
    source venv/bin/activate  # Linux
+   ou
+   venv\Scripts\activate  # Windows
 
 3. Instale as dependências:
 
